@@ -1,0 +1,69 @@
+address: "Rajkot" 
+alerts: []
+currentConditions: 
+    cloudcover: 88
+    conditions: "Partially cloudy"
+    datetime: "13:30:00"
+    datetimeEpoch: 1687680000
+    dew: 26
+    feelslike: 43.4
+    humidity: 63.1
+    icon: "partly-cloudy-day"
+    moonphase: 0.23
+    precip: 0
+    precipprob: 0
+    preciptype: null
+    pressure: 1001
+    snow: 0
+    snowdepth: 0
+    solarenergy: 1.3
+    solarradiation: 355
+    source: "obs"
+    stations: ['VARK']
+    sunrise: "06:04:32"
+    sunriseEpoch: 1687653272
+    sunset: "19:34:16"
+    sunsetEpoch: 1687701856
+    temp: 33.9
+    uvindex: 4
+    visibility: 6
+    winddir: 240
+    windgust: null
+    windspeed: 20.5
+
+days:
+    cloudcover:  75.8
+    conditions:  "Rain, Partially cloudy"
+    datetime:  "2023-06-25"
+    datetimeEpoch:  1687631400
+    description:  "Partly cloudy throughout the day with rain clearing later." dew: 23.2
+    feelslike:  35.2
+    feelslikemax:  43.4
+    feelslikemin:  31.6
+    hours:  (24) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+    humidity:  65.8
+    icon:  "rain"
+    moonphase:  0.23 
+    precip: 1
+    precipcover:  16.67 
+    precipprob: 100
+    preciptype:  ['rain']
+    pressure:  1001.6 
+    severerisk: 10 
+    snow: 0 
+    snowdepth: 0
+    solarenergy: 7.6
+    solarradiation:  87.2
+    source:  "comb"
+    stations:  (2) ['remote', 'VARK']
+    sunrise:  "06:04:32"
+    sunriseEpoch:  1687653272
+    sunset:  "19:34:16"
+    sunsetEpoch:  1687701856
+    temp:  30.7
+    tempmax:  33.9 tempmin: 
+    28 uvindex: 4
+    visibility:  17.1
+    winddir:  238.3
+    windgust:  36.4
+    windspeed:  27.7

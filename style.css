@@ -1,0 +1,16 @@
+.carousel-indicators li {
+    background-color: #282828;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.dev-card {
+    border-radius: 1.5rem;
+    padding: 1rem 1rem;
+}
+
+.dev {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
