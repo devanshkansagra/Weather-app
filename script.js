@@ -1,6 +1,13 @@
 let body = document.body;
 
-const date = new Date();
+// Date and time control
+let date = new Date();
+let weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+let nextDay = date.getDay()
+
+let days = document.querySelectorAll('.day');
+
+let dayTemp = document.querySelectorAll('.day-temp');
 
 // Change Light and Dark Theme
 let light = document.getElementById('light');
@@ -16,6 +23,7 @@ dark.addEventListener('click', () => {
     body.setAttribute("data-bs-theme", "dark");
 });
 
+// Get City
 let city = document.getElementById('city');
 let searchCity = document.getElementById('searchCity');
 
@@ -33,6 +41,8 @@ let pressure = document.getElementById('pressure');
 let sunrise = document.getElementById('sunr');
 let sunset = document.getElementById('suns');
 let windDir = document.getElementById('windDir');
+let description = document.getElementById('des');
+let weathericon = document.querySelectorAll('.weather-icon');
 
 
 searchCity.addEventListener('click', () => {
@@ -61,6 +71,7 @@ searchCity.addEventListener('click', () => {
             sunrise.innerHTML = result.currentConditions.sunrise;
             sunset.innerHTML = result.currentConditions.sunset;
             windDir.innerHTML = result.currentConditions.winddir;
+            des.innerHTML = "(" + result.description + ")";
 
             if(result.currentConditions.conditions == "Clear") {
                 if(date.getHours() >= 6 && date.getHours() <= 18) {
@@ -89,10 +100,45 @@ searchCity.addEventListener('click', () => {
             }
 
             console.log(result);
+            // console.log(date.getDay);
+
+            Array.from(days).forEach((day, index) => {
+                if(index < nextDay) {
+                    let shifted = weekDays.shift(day[index]);
+                    weekDays.push(shifted);
+                }
+                day.innerHTML = weekDays[index];
+                nextDay --;
+            });
+
+            Array.from(dayTemp).forEach((day, index) => {
+                day.innerHTML = result.days[index].temp;
+            });
+
+            Array.from(weathericon).forEach((icon, index) => {
+                if(result.days[index].conditions == "Clear") {
+                    icon.innerHTML = '<i class="fa-solid fa-sun fa-2xl" style="color: #c2c2c2;"></i>'
+                }
+                else if(result.days[index].conditions == "Partially cloudy") {
+                    icon.innerHTML = '<i class="fa-solid fa-cloud-sun fa-2xl" style="color: #c2c2c2;"></i>'
+                }
+                else if(result.days[index].conditions == "Rain, Overcast" || result.days[index].conditions == "Rain") {
+                    icon.innerHTML = '<i class="fa-solid fa-cloud-rain fa-2xl" style="color: #c2c2c2;"></i>'
+                }
+                else if(result.days[index].conditions == "Overcast") {
+                    icon.innerHTML = '<i class="fa-solid fa-cloud-rain fa-2xl" style="color: #c2c2c2;"></i>'
+                }
+                else if(result.days[index].conditions == "Cloudy") {
+                    icon.innerHTML = '<i class="fa-solid fa-cloud fa-2xl" style="color: #c2c2c2;"></i>'
+                }
+                else if(result.days[index].conditions == "Rain, Partially cloudy") {
+                    icon.innerHTML = '<i class="fa-solid fa-cloud-sun-rain fa-2xl" style="color: #c2c2c2;"></i>'
+                }
+            });
             
             
         } catch (error) {
-            console.error(error);
+            alert('City not found');
         }
     }
     getWeather();
