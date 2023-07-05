@@ -3,9 +3,6 @@ let body = document.body;
 // Date and time control
 let date = new Date();
 let weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-let nextDay = date.getDay()
-
-let days = document.querySelectorAll('.day');
 
 let dayTemp = document.querySelectorAll('.day-temp');
 
@@ -13,12 +10,12 @@ let dayTemp = document.querySelectorAll('.day-temp');
 let light = document.getElementById('light');
 let dark = document.getElementById('dark');
 
-// Change to Dark Mode
+// Change to Light Mode
 light.addEventListener('click', () => {
     body.setAttribute("data-bs-theme", "light");
 });
 
-// Change to light Mode
+// Change to Dark Mode
 dark.addEventListener('click', () => {
     body.setAttribute("data-bs-theme", "dark");
 });
@@ -46,7 +43,8 @@ let weathericon = document.querySelectorAll('.weather-icon');
 
 
 searchCity.addEventListener('click', () => {
-    
+
+    // Get City Value
     let cityVal = city.value;
     console.log(cityVal);
 
@@ -58,6 +56,8 @@ searchCity.addEventListener('click', () => {
             const response = await fetch(url);
             const result = await response.json();
 
+
+            // Display Data
             temp.innerHTML = result.currentConditions.temp;
             cityCont.innerHTML = result.resolvedAddress;
             windspeed.innerHTML = result.currentConditions.windspeed
@@ -73,71 +73,83 @@ searchCity.addEventListener('click', () => {
             windDir.innerHTML = result.currentConditions.winddir;
             des.innerHTML = "(" + result.description + ")";
 
-            if(result.currentConditions.conditions == "Clear") {
-                if(date.getHours() >= 6 && date.getHours() <= 18) {
+            // Display Weather Icon according to the conditions and timing
+            if (result.currentConditions.conditions == "Clear") {
+                if (date.getHours() >= 6 && date.getHours() <= 18) {
                     weatherImg.innerHTML = '<img src="assets/sun.png" alt="">'
                 }
                 else {
                     weatherImg.innerHTML = '<img src="assets/moon.png" alt="">'
                 }
             }
-            if(result.currentConditions.conditions == "Partially cloudy") {
-                if(date.getHours() >= 6 && date.getHours() <= 18) {
+            if (result.currentConditions.conditions == "Partially cloudy") {
+                if (date.getHours() >= 6 && date.getHours() <= 18) {
                     weatherImg.innerHTML = '<img src="assets/sunBehindCloud.png" alt="">'
                 }
                 else {
                     weatherImg.innerHTML = '<img src="assets/moonBehindCloud.png" alt="">'
                 }
             }
-            if(result.currentConditions.conditions == "Rain, Overcast" || result.currentConditions.conditions == "Rain") {
+            if (result.currentConditions.conditions == "Rain, Overcast" || result.currentConditions.conditions == "Rain") {
                 weatherImg.innerHTML = '<img src="assets/LightRain.png" alt="">'
             }
-            if(result.currentConditions.conditions == "Overcast") {
+            if (result.currentConditions.conditions == "Overcast") {
                 weatherImg.innerHTML = '<img src="assets/DarkCloud.png" alt="">'
             }
-            if(result.currentConditions.conditions == "Cloudy") {
+            if (result.currentConditions.conditions == "Cloudy") {
                 weatherImg.innerHTML = '<img src="assets/DarkCloud.png" alt="">'
             }
 
-            console.log(result);
-            // console.log(date.getDay);
+            // console.log(result);
 
-            Array.from(days).forEach((day, index) => {
-                if(index < nextDay) {
-                    let shifted = weekDays.shift(day[index]);
-                    weekDays.push(shifted);
+            // Display Day
+
+            // Issue: The days are not displaying in the correct order
+            const currentDay = date.getDay()
+            weekDays.forEach((day, index) => {
+                // console.log(currentDay)
+                if (index < currentDay) {
+                   let shift = weekDays.shift();
+                    weekDays.push(shift);
                 }
-                day.innerHTML = weekDays[index];
-                nextDay --;
             });
-
+            console.log(currentDay);
+            Array.from(document.getElementsByClassName('day')).forEach((day, index) => {
+                // console.log(day);
+                day.innerHTML = weekDays[index];
+            });
+             
+            // Display Day Temp
             Array.from(dayTemp).forEach((day, index) => {
                 day.innerHTML = result.days[index].temp;
             });
 
+            // Display Day weather icon
             Array.from(weathericon).forEach((icon, index) => {
-                if(result.days[index].conditions == "Clear") {
+                if (result.days[index].conditions == "Clear") {
                     icon.innerHTML = '<i class="fa-solid fa-sun fa-2xl" style="color: #c2c2c2;"></i>'
                 }
-                else if(result.days[index].conditions == "Partially cloudy") {
+                else if (result.days[index].conditions == "Partially cloudy") {
                     icon.innerHTML = '<i class="fa-solid fa-cloud-sun fa-2xl" style="color: #c2c2c2;"></i>'
                 }
-                else if(result.days[index].conditions == "Rain, Overcast" || result.days[index].conditions == "Rain") {
+                else if (result.days[index].conditions == "Rain, Overcast" || result.days[index].conditions == "Rain") {
                     icon.innerHTML = '<i class="fa-solid fa-cloud-rain fa-2xl" style="color: #c2c2c2;"></i>'
                 }
-                else if(result.days[index].conditions == "Overcast") {
+                else if (result.days[index].conditions == "Overcast") {
                     icon.innerHTML = '<i class="fa-solid fa-cloud-rain fa-2xl" style="color: #c2c2c2;"></i>'
                 }
-                else if(result.days[index].conditions == "Cloudy") {
+                else if (result.days[index].conditions == "Cloudy") {
                     icon.innerHTML = '<i class="fa-solid fa-cloud fa-2xl" style="color: #c2c2c2;"></i>'
                 }
-                else if(result.days[index].conditions == "Rain, Partially cloudy") {
+                else if (result.days[index].conditions == "Rain, Partially cloudy") {
                     icon.innerHTML = '<i class="fa-solid fa-cloud-sun-rain fa-2xl" style="color: #c2c2c2;"></i>'
                 }
             });
-            
-            
-        } catch (error) {
+
+
+        }
+        // Error Handling 
+        catch (error) {
             alert('City not found');
         }
     }
