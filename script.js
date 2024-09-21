@@ -41,7 +41,7 @@ let windDir = document.getElementById('windDir');
 let description = document.getElementById('des');
 let weathericon = document.querySelectorAll('.weather-icon');
 
-
+// Search city by name
 searchCity.addEventListener('click', () => {
 
     // Get City Value
