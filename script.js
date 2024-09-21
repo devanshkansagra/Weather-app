@@ -42,6 +42,7 @@ let description = document.getElementById('des');
 let weathericon = document.querySelectorAll('.weather-icon');
 
 
+// Search City by name
 searchCity.addEventListener('click', () => {
 
     // Get City Value
